@@ -1,11 +1,28 @@
-import setuptools
+from setuptools import setup, find_packages
+from typing import List
+
+HYPEN_E_NOT = "-e ."
+def get_requirements(file_path:str)->List[str]:
+    '''
+    this function will return the list of requirements from a requirements file
+
+    '''
+    requirements = []
+    with open(file_path, 'r') as file_obj:
+          requirements= file_obj.readlines()
+          requirements= [req.replace("\n", "") for req in requirements ]
+
+          if HYPEN_E_NOT in requirements:
+              requirements.remove(HYPEN_E_NOT)
+
+    return requirements
 
 
-with open("README.md", "r",encoding = "urf-8") as f:
-    long_description = f.read()
-
-__version__ = "0.0"
-SRC_REPO = "AdultIncomePrediction"
-AUTHOR_USER_NAME: "DIKSHANT PATEL"
-REPO_NAME: "ADULT_INCOME_PREDICTION_EndtoEnd"
-setuptools.setup()
+setup(
+name="Projects",
+version="0.0.1",
+author="DIKSHANTPATEL",
+author_email="Dikshantpatel2210@gmail.com",
+packages=find_packages(),
+install_requires=get_requirements("requirements.txt")
+)
